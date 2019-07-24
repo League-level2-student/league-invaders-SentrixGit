@@ -7,13 +7,14 @@ public class LeagueInvaders {
 	
 	GamePanel GamePanelInstance;
 	
-	public static final int WIDTH = 500;
-	public static final int HEIGHT = 800;
+	public static final int WIDTH = 1920;
+	public static final int HEIGHT = 1080;
 	
 	LeagueInvaders() {
 		Frame = new JFrame();
 		GamePanelInstance = new GamePanel();
 		
+		Frame.addKeyListener(GamePanelInstance);
 		setup();
 	}
 	
