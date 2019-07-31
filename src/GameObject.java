@@ -18,8 +18,4 @@ public class GameObject {
 	void update() {
 		
 	}
-	
-	public static void main(String[] args) {
-		
-	}
 }
