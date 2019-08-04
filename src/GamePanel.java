@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     int sizeY = 50;
     
     Rocketship bob = new Rocketship(X, Y, sizeX, sizeY);
+    ObjectManager Manager = new ObjectManager(X,Y,sizeX,sizeY);
     
     Font titleFont;
     Font lowerFont1;
@@ -54,7 +55,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	public void updateMenuState() { 
-		
+		Manager.update();
 	}
 	
 	void updateGameState() { 
@@ -79,7 +80,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	
 	void drawGameState(Graphics g) { 
 		 //new GameObject(X, Y, sizeX, sizeY);.
-		bob.draw(g);
+		Manager.draw(g);
+		
 	}
 	
 
@@ -109,27 +111,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (currentState != GAME) {
 				if (currentState != END) {
 					currentState = GAME;
-					System.out.println("YAY");
 				}
 			}
 		}
 		
 		if (currentState == GAME) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
-			    System.out.println("UP");
-			    
-			    bob.up();
+				bob.up();
 			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				System.out.println("DOWN");
-				
 				bob.down();
 			} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				System.out.println("LEFT");
-				
 				bob.right();
 			} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				System.out.println("RIGHT");
-				
 				bob.left();
 				
 				
