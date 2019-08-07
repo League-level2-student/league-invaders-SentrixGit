@@ -14,6 +14,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     final int END = 2; 
     
     Timer frameDraw;
+    Timer alienSpawn;
     
     int currentState = MENU;
     
@@ -55,15 +56,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	public void updateMenuState() { 
-		Manager.update();
+		
 	}
 	
 	void updateGameState() { 
-		
+		Manager.update();
 	}
 	
 	void updateEndState()  { 
 		 
+	}
+	
+	void startGame() {
+		alienSpawn = new Timer(0, Manager);
+		alienSpawn.start();
 	}
 	
 	void drawMenuState(Graphics g) { 
@@ -81,7 +87,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawGameState(Graphics g) { 
 		 //new GameObject(X, Y, sizeX, sizeY);.
 		Manager.draw(g);
-		
+		bob.draw(g);
 	}
 	
 
@@ -110,8 +116,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			if (currentState != GAME) {
 				if (currentState != END) {
+					startGame();
 					currentState = GAME;
 				}
+			} else {
+				Manager.addProjectile(bob.getProjectile());
 			}
 		}
 		

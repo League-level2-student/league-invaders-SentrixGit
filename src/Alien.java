@@ -14,7 +14,7 @@ public class Alien extends GameObject {
 		speed = 1;
 		
 		if (needImage) {
-		    loadImage ("alien.png");
+		    loadImage ("download.png");
 		}
 	}
 	

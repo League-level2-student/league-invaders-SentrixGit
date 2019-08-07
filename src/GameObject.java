@@ -12,7 +12,7 @@ public class GameObject {
 		width = widthVal;
 		height = heightVal;
 		speed = 0;
-		isActive = false;
+		isActive = true;
 	}
 	
 	void update() {

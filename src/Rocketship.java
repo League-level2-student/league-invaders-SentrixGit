@@ -27,21 +27,25 @@ public class Rocketship extends GameObject{
 
 	}
 	
-	void up() { 
+	public void up() { 
 		y-=speed;
 	}
 	
-	void down() { 
+	public void down() { 
 		y+=speed;
 	}
 
-	void left() { 
+	public void left() { 
 		x+=speed;
 	}
 
-	void right() { 
+	public void right() { 
 		x-=speed;
 	}
+	
+	public Projectile getProjectile() {
+        return new Projectile(x+width/2, y, 10, 10);
+	} 
 	
 	void loadImage(String imageFile) {
 	    if (needImage) {
