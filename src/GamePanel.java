@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     int sizeY = 50;
     
     Rocketship bob = new Rocketship(X, Y, sizeX, sizeY);
-    ObjectManager Manager = new ObjectManager(X,Y,sizeX,sizeY);
+    ObjectManager Manager = new ObjectManager(bob);
     
     Font titleFont;
     Font lowerFont1;
@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     	titleFont = new Font("Avenir Next", Font.BOLD, 28);
     	lowerFont1 = new Font("Avenir Next", Font.PLAIN, 16);
     	
-        frameDraw = new Timer(1000/60,this);
+        frameDraw = new Timer(1/60,this);
         frameDraw.start();
     }
     
@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		    updateMenuState();
 		}else if(currentState == GAME){
 		    drawGameState(g);
-		    updateMenuState();
+		    updateGameState();
 		}else if(currentState == END){
 		    drawEndState(g);
 		    updateMenuState();
@@ -68,7 +68,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	void startGame() {
-		alienSpawn = new Timer(0, Manager);
+		alienSpawn = new Timer(1000, Manager);
 		alienSpawn.start();
 	}
 	
@@ -107,13 +107,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-		    if (currentState == END) {
-		        currentState = MENU;
-		    } else {
-		        currentState++;
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+		    if (currentState == GAME) {
+		    	Manager.addProjectile(Manager.roket.getProjectile());
 		    }
-		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState != GAME) {
 				if (currentState != END) {
 					startGame();

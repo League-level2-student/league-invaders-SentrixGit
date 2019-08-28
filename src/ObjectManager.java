@@ -9,16 +9,16 @@ public class ObjectManager implements ActionListener {
 	ArrayList<Projectile> destroy = new ArrayList <Projectile>();
 	ArrayList<Alien> aliens = new ArrayList <Alien>();
 	
-	ObjectManager(int xVal, int yVal, int widthVal, int heightVal) {
-		roket = new Rocketship(xVal,yVal,widthVal,heightVal);
+	ObjectManager(Rocketship rrrr) {
+		roket = rrrr;
 	}
 	
 	void addProjectile(Projectile p) {
-		
+		//add stuffies
 	}
 	
 	void addAlien() {
-		aliens.add(new Alien(new Random().nextInt(LeagueInvaders.WIDTH),0,500,500));
+		aliens.add(new Alien(new Random().nextInt(LeagueInvaders.WIDTH),0,100,100));
 	}
 	
 	void update() {
@@ -28,6 +28,8 @@ public class ObjectManager implements ActionListener {
 		for (int i = 0; i < destroy.size(); i++) {
 			destroy.get(i).update();
 		}
+		checkCollision();
+		purgeObjects();
 	}
 	
 	void draw(Graphics g) {
@@ -42,17 +44,29 @@ public class ObjectManager implements ActionListener {
 	}
 	
 	void purgeObjects() {
-		//for (int i = 0; i < aliens.size(); i++) {
-		//	aliens.get(i).draw(g);
-		//}
+		for (int i = 0; i < aliens.size(); i++) {
+			if (aliens.get(i).isActive == false) {
+				aliens.remove(i);
+			}
+		}
 		
-		//for (int i = 0; i < destroy.size(); i++) {
-		//	destroy.get(i).draw(g);
-		//}
+		for (int i = 0; i < destroy.size(); i++) {
+			if (destroy.get(i).isActive == false) {
+				destroy.remove(i);
+			}
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		addAlien();
+	}
+	
+	void checkCollision() {
+		for (int i = 0; i < aliens.size(); i++) {
+			if (roket.collisionBox.intersects(aliens.get(i).collisionBox)) {
+				aliens.get(i).isActive = false;
+			}
+		}
 	}
 	
 }
