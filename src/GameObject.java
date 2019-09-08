@@ -16,7 +16,7 @@ public class GameObject {
 		y = yVal;
 		width = widthVal;
 		height = heightVal;
-		speed = 0;
+		speed = 5;
 		isActive = true;
 		collisionBox = new Rectangle(xVal, yVal, widthVal, heightVal);
 	}

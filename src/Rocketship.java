@@ -7,11 +7,13 @@ import javax.imageio.ImageIO;
 public class Rocketship extends GameObject{
 	public static BufferedImage image;
 	public static boolean needImage = true;
-	public static boolean gotImage = false;	
+	public static boolean gotImage = false;
+	boolean isActive = false;
 	
 	Rocketship(int xVal, int yVal, int widthVal, int heightVal) {
 		super(xVal, yVal, widthVal, heightVal);
-		speed = 10;
+		isActive = true;
+		speed = 50;
 		if (needImage) {
 		    loadImage ("rocket.png");
 		}

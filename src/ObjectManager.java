@@ -65,6 +65,7 @@ public class ObjectManager implements ActionListener {
 		for (int i = 0; i < aliens.size(); i++) {
 			if (roket.collisionBox.intersects(aliens.get(i).collisionBox)) {
 				aliens.get(i).isActive = false;
+				roket.isActive = false;
 			}
 		}
 	}

@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     	titleFont = new Font("Avenir Next", Font.BOLD, 28);
     	lowerFont1 = new Font("Avenir Next", Font.PLAIN, 16);
     	
-        frameDraw = new Timer(1/60,this);
+        frameDraw = new Timer(1/30,this);
         frameDraw.start();
     }
     
@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		    updateGameState();
 		}else if(currentState == END){
 		    drawEndState(g);
-		    updateMenuState();
+		    updateEndState();
 		}
 	}
 	
@@ -68,6 +68,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	void startGame() {
+		bob.isActive = true;
 		alienSpawn = new Timer(1000, Manager);
 		alienSpawn.start();
 	}
@@ -77,22 +78,29 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		g.setFont(titleFont);
 		g.setColor(Color.WHITE);
-		g.drawString("Space Invaders OG Remake", 800, 50);
+		g.drawString("Space Invaders", 800, 50);
 		
 		g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
 		
-		g.drawString("Press space to start", 850, 900);
+		g.drawString("Press enter to start!", 850, 900);
 	}
 	
 	void drawGameState(Graphics g) { 
 		 //new GameObject(X, Y, sizeX, sizeY);.
 		Manager.draw(g);
 		bob.draw(g);
+		
+		if (bob.isActive == false) {
+			currentState = END;
+		}
 	}
 	
 
-	void drawEndState(Graphics g)  { 
-		 
+	void drawEndState(Graphics g)  {
+		g.setFont(titleFont);
+		g.setColor(Color.WHITE);
+		g.drawString("Space Invaders", 800, 50);
+		g.drawString("Oh no! You lost. Your score was:" + ". Press enter to restart", 850, 900);
 	}
 
 	@Override
@@ -113,12 +121,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		    }
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState != GAME) {
-				if (currentState != END) {
-					startGame();
-					currentState = GAME;
-				}
+				startGame();	
+				currentState = GAME;
 			} else {
-				Manager.addProjectile(bob.getProjectile());
+				//Manager.addProjectile(bob.getProjectile());
 			}
 		}
 		
